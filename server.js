@@ -15,7 +15,21 @@ app.get('/api/status', (req, res) => {
         serverTime: new Date().toISOString()
     });
 });
+// ==================== النظام النهائي ====================
 
+// نظام الصحة
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'IMPERIAL_HEALTHY',
+    uptime: process.uptime() 
+  });
+});
+
+// إغلاق آمن
+process.on('SIGTERM', () => {
+  console.log('🏛️ النظام يغلق بأناقة');
+  process.exit(0);
+});
 // تأكد من خدمة index.html حتى لو طلبوا /
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
