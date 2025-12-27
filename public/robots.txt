@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Sitemap: https://novaapp.tech/sitemap.xml
+
+# النطاق الأساسي
+Host: https://novaapp.tech
+
+# منع التداخل
+Disallow: /api/status?ai
+Disallow: /api/status?chat
