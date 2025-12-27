@@ -1,29 +1,27 @@
-// النسخة المحسنة:
 const express = require('express');
-const path = require('path'); // أضف هذا
 const app = express();
-const PORT = process.env.PORT || 3000; // تحسين
+const PORT = 3000;
 
-// خدمة الملفات الثابتة بشكل أفضل
-app.use(express.static(path.join(__dirname)));
+// خدمة الملفات الثابتة (من نفس المجلد)
+app.use(express.static(__dirname));
 
 // API أساسي
 app.get('/api/status', (req, res) => {
     res.json({
         company: "NOVATECH FOUNDER HOLDINGS",
-        domain: "novaapp.tech", 
+        domain: "novaapp.tech",
         status: "IMPERIAL_ACTIVE",
         code: "TB-2024-LEGEND",
-        timestamp: new Date().toISOString()
+        serverTime: new Date().toISOString()
     });
 });
 
-// صفحة الرئيسية
+// تأكد من خدمة index.html حتى لو طلبوا /
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(__dirname + '/index.html');
 });
 
 app.listen(PORT, () => {
-    console.log(`🏛️ Imperial Server running: http://localhost:${PORT}`);
-    console.log(`🌐 API: http://localhost:${PORT}/api/status`);
+    console.log(`🏛️ Server running: http://localhost:${PORT}`);
+    console.log(`📡 API Active: http://localhost:${PORT}/api/status`);
 });
