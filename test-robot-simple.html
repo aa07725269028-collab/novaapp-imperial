@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار الروبوت الأول - الإمبراطورية</title>
+    <style>
+        body { background: black; color: gold; font-family: Arial; padding: 20px; }
+        .robot { border: 2px solid gold; padding: 15px; margin: 10px; border-radius: 10px; }
+        button { background: gold; color: black; padding: 10px; border: none; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>🤖 اختبار الروبوت الإمبراطوري الأول</h1>
+    
+    <div class="robot">
+        <h2 id="robotName">الإمبراطور الأول</h2>
+        <p id="robotStatus">جاري التهيئة...</p>
+        <button onclick="createRobot()">🎯 ولد روبوت جديد</button>
+        <button onclick="makeRobotWork()">⚙️ اجعل الروبوت يعمل</button>
+        <button onclick="replicateRobot()">🔄 أنتج روبوت ابن</button>
+    </div>
+    
+    <div id="output" style="margin-top: 20px; padding: 15px; background: #111; min-height: 100px;"></div>
+
+    <script>
+        // محاكاة بسيطة للروبوت (بدون Node.js)
+        let robot = {
+            name: "الإمبراطور الأول",
+            id: "ROBOT_" + Date.now(),
+            children: [],
+            skills: ["مراقبة", "تحليل"],
+            learn: function(lesson) {
+                return `🤖 ${this.name}: تعلمت "${lesson}"`;
+            },
+            work: function(task) {
+                const tasks = {
+                    "مراقبة": "📊 جاري مراقبة الأسواق...",
+                    "تحليل": "🔍 جاري تحليل البيانات...",
+                    "تقرير": "📝 جاري إنشاء التقرير..."
+                };
+                return `⚙️ ${this.name}: ${tasks[task] || "يعمل..."}`;
+            },
+            replicate: function() {
+                const childId = `ROBOT_${this.id}_CHILD_${this.children.length + 1}`;
+                const childName = `${this.name} - النسل ${this.children.length + 1}`;
+                
+                this.children.push({id: childId, name: childName});
+                return `🔄 ${this.name}: أنشأت روبوت جديد: ${childName}`;
+            },
+            report: function() {
+                return `📋 ${this.name}: لدي ${this.skills.length} مهارات و${this.children.length} أبناء`;
+            }
+        };
+
+        function log(message) {
+            document.getElementById('output').innerHTML += `<div>${message}</div>`;
+        }
+
+        function createRobot() {
+            robot = {
+                name: "روبوت الإمبراطورية #" + Math.floor(Math.random() * 1000),
+                id: "ROBOT_" + Date.now(),
+                children: [],
+                skills: ["مراقبة", "تحليل", "تقرير"],
+                learn: function(lesson) { return `🤖 ${this.name}: تعلمت "${lesson}"`; },
+                work: function(task) { return `⚙️ ${this.name}: يعمل على "${task}"`; },
+                replicate: function() {
+                    const childName = `${this.name} - النسل ${this.children.length + 1}`;
+                    this.children.push(childName);
+                    return `🔄 ${this.name}: أنشأت روبوت جديد`;
+                },
+                report: function() {
+                    return `📋 ${this.name}: ${this.skills.length} مهارات`;
+                }
+            };
+            
+            document.getElementById('robotName').textContent = robot.name;
+            log("✅ " + robot.name + " ولد!");
+        }
+
+        function makeRobotWork() {
+            const tasks = ["مراقبة الأسواق", "تحليل البيانات", "إنشاء تقرير"];
+            const task = tasks[Math.floor(Math.random() * tasks.length)];
+            
+            log(robot.work(task));
+            log(robot.learn("كيفية " + task));
+        }
+
+        function replicateRobot() {
+            log(robot.replicate());
+            log(robot.report());
+        }
+
+        // تهيئة أولية
+        document.getElementById('robotName').textContent = robot.name;
+        log("🏛️ نظام اختبار الروبوتات الإمبراطورية جاهز");
+        log("انقر على الأزرار لترى الروبوت يعمل");
+    </script>
+</body>
+</html>
