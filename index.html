@@ -140,6 +140,41 @@
             </div>
         </div>
 
+                <!-- 🤖 البطاقة الجديدة: جيش الروبوتات -->
+        <div class="imperial-card">
+            <div class="card-header">
+                <h2><i class="fas fa-robot"></i> جيش الروبوتات الإمبراطوري</h2>
+                <div class="status-badge status-active" id="robotStatus">5 نشط</div>
+            </div>
+            
+            <div style="margin: 15px 0;">
+                <div style="display: flex; justify-content: space-between; margin: 10px 0;">
+                    <span>🤖 الروبوتات النشطة:</span>
+                    <span style="color: #00ff00; font-weight: bold;" id="robotCount">5</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin: 10px 0;">
+                    <span>🏛️ أعضاء المجلس:</span>
+                    <span style="color: #00ff00; font-weight: bold;" id="councilCount">5</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin: 10px 0;">
+                    <span>🔄 الأجيال:</span>
+                    <span style="color: #00ff00; font-weight: bold;" id="robotGenerations">2</span>
+                </div>
+            </div>
+            
+            <div class="control-buttons">
+                <button class="imperial-btn btn-primary" onclick="replicateRobots(3)">
+                    <i class="fas fa-baby"></i> تكاثر (+3)
+                </button>
+                <button class="imperial-btn btn-secondary" onclick="updateRobotStats()">
+                    <i class="fas fa-sync-alt"></i> تحديث البيانات
+                </button>
+                <button class="imperial-btn btn-danger" onclick="window.open('/test-robot-simple.html', '_blank')">
+                    <i class="fas fa-gamepad"></i> لوحة التحكم
+                </button>
+            </div>
+        </div>
+        
         <div class="imperial-card" style="grid-column: span 2;">
             <div class="card-header">
                 <h2><i class="fas fa-chart-network"></i> لوحة التحكم التجارية الحية</h2>
