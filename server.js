@@ -14,6 +14,33 @@ app.use((req, res, next) => {
     res.setHeader('X-Powered-By', 'NOVATECH FOUNDER HOLDINGS');
     next();
 });
+// أضف في الأعلى:
+const { ImperialRobot, RobotCouncil, RobotArmyMonitor } = require('./robots/core/first-robot');
+
+// إنشاء النظام الأساسي
+const robotArmy = new RobotArmyMonitor();
+const firstRobot = new ImperialRobot(null, "القائد الإمبراطوري");
+robotArmy.addRobot(firstRobot);
+
+// أضف API جديد:
+app.get('/api/robots/status', (req, res) => {
+    res.json({
+        army: robotArmy.getArmyReport(),
+        council: council.getCouncilReport(),
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/robots/replicate/:count', (req, res) => {
+    const count = parseInt(req.params.count) || 10;
+    robotArmy.replicateArmy(count);
+    
+    res.json({
+        message: `تم تكاثر الجيش إلى ${count} روبوت`,
+        newCount: robotArmy.robots.length,
+        timestamp: new Date().toISOString()
+    });
+});
 
 // ==================== 📁 خدمة الملفات ====================
 // الملفات الثابتة من مجلد public
