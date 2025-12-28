@@ -14,33 +14,17 @@ app.use((req, res, next) => {
     res.setHeader('X-Powered-By', 'NOVATECH FOUNDER HOLDINGS');
     next();
 });
+
+// ==================== 🤖 نظام الروبوتات الإمبراطورية ====================
 // أضف في الأعلى:
 const { ImperialRobot, RobotCouncil, RobotArmyMonitor } = require('./robots/core/first-robot');
 
 // إنشاء النظام الأساسي
 const robotArmy = new RobotArmyMonitor();
 const firstRobot = new ImperialRobot(null, "القائد الإمبراطوري");
+const council = new RobotCouncil(); // ✅ تم التصحيح هنا
 robotArmy.addRobot(firstRobot);
-
-// أضف API جديد:
-app.get('/api/robots/status', (req, res) => {
-    res.json({
-        army: robotArmy.getArmyReport(),
-        council: council.getCouncilReport(),
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/robots/replicate/:count', (req, res) => {
-    const count = parseInt(req.params.count) || 10;
-    robotArmy.replicateArmy(count);
-    
-    res.json({
-        message: `تم تكاثر الجيش إلى ${count} روبوت`,
-        newCount: robotArmy.robots.length,
-        timestamp: new Date().toISOString()
-    });
-});
+council.addMember(firstRobot); // ✅ تم التصحيح هنا
 
 // ==================== 📁 خدمة الملفات ====================
 // الملفات الثابتة من مجلد public
@@ -101,8 +85,29 @@ app.get('/api/status', (req, res) => {
             financial: "ACTIVE",
             aiCouncil: "OPERATIONAL",
             security: "MAXIMUM",
-            trading: "READY"
+            trading: "READY",
+            robots: "ACTIVE"
         }
+    });
+});
+
+// ==================== 🤖 نظام الروبوتات API ====================
+app.get('/api/robots/status', (req, res) => {
+    res.json({
+        army: robotArmy.getArmyReport(),
+        council: council.getCouncilReport(), // ✅ الآن council معرف
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/robots/replicate/:count', (req, res) => {
+    const count = parseInt(req.params.count) || 10;
+    robotArmy.replicateArmy(count);
+    
+    res.json({
+        message: `تم تكاثر الجيش إلى ${count} روبوت`,
+        newCount: robotArmy.robots.length,
+        timestamp: new Date().toISOString()
     });
 });
 
@@ -166,6 +171,11 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
+// ==================== 🤖 صفحة اختبار الروبوت ====================
+app.get('/test-robot-simple.html', (req, res) => {
+    res.sendFile(__dirname + '/test-robot-simple.html');
+});
+
 // ==================== ❌ صفحة 404 ====================
 app.use((req, res) => {
     res.status(404).json({
@@ -196,6 +206,9 @@ const server = app.listen(PORT, () => {
     console.log(`🏛️ ==========================================`);
     console.log(`🚀 النظام يعمل على: http://localhost:${PORT}`);
     console.log(`📡 API الإمبراطوري: http://localhost:${PORT}/api/status`);
+    console.log(`🤖 روبوتات: http://localhost:${PORT}/api/robots/status`);
+    console.log(`🔄 تكاثر: http://localhost:${PORT}/api/robots/replicate/10`);
+    console.log(`🤖 اختبار: http://localhost:${PORT}/test-robot-simple.html`);
     console.log(`❤️  نظام الصحة: http://localhost:${PORT}/health`);
     console.log(`🏛️ ==========================================\n`);
 });
@@ -219,3 +232,4 @@ process.on('SIGINT', () => {
 
 // ==================== 💫 تصريح نهائي ====================
 console.log('🏛️ النظام الإمبراطوري جاهز للأوامر...');
+console.log('🤖 جيش الروبوتات الإمبراطورية ينطلق...');
